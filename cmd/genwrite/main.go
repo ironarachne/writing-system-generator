@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitlab.com/ironarachne/writing-system-generator"
+	"github.com/ironarachne/writing-system-generator"
 )
 
 func main() {
