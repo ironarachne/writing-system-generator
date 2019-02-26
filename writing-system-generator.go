@@ -140,7 +140,6 @@ func drawVerticalWedge(image gg.Context, maximum int) {
 }
 
 func generateGlyph(representation string, patternSet []string, maximum int) {
-	rand.Seed(time.Now().UnixNano())
 	numberOfPatterns := rand.Intn(2) + 1
 	point := randomPoint(maximum)
 	nextPoint := Point{0.0, 0.0}
@@ -268,12 +267,10 @@ func nudgePoint(point Point) Point {
 }
 
 func randomScalar(maximum int) int {
-	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(maximum)
 }
 
 func randomPattern(patternSet []string) string {
-	rand.Seed(time.Now().UnixNano())
 	randomItem := patternSet[rand.Intn(len(patternSet))]
 	return randomItem
 }
@@ -324,6 +321,7 @@ func perturbPoints(points []Point) []Point {
 
 // Generate procedurally generates a set of glyphs
 func Generate() {
+	rand.Seed(time.Now().UnixNano())
 	maximum := 256
 
 	patterns := generatePatternSet()
