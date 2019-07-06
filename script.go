@@ -13,7 +13,7 @@ type Script struct {
 
 // Generate procedurally generates a set of glyphs
 func Generate() Script {
-	script := randomScript(128, 128)
+	script := randomScript(64, 64)
 
 	return script
 }
@@ -46,7 +46,7 @@ func (script Script) RenderHTML() {
         <style type="text/css">
             body, html { font-size: 28px; }
             div.container { display: flex; flex-wrap: wrap; width: 1600px; margin: 1rem auto; }
-            div.cell { width: 300px; height: 300px; margin: 1rem; text-align: center; font-weight: 700; }
+            div.cell { width: 100px; height: 100px; margin: 1rem; text-align: center; font-weight: 700; }
             div.cell > img { display: block; }
         </style>
     </head>

@@ -12,6 +12,8 @@ type Glyph struct {
 	Strokes        []Stroke
 	Width          int
 	Height         int
+	GridSizeX      int
+	GridSizeY      int
 }
 
 func generateGlyph(representation string, width int, height int) Glyph {
@@ -25,6 +27,8 @@ func generateGlyph(representation string, width int, height int) Glyph {
 		Representation: representation,
 		Width:          width,
 		Height:         height,
+		GridSizeX:      5,
+		GridSizeY:      5,
 	}
 
 	for i := 0; i < numberOfStrokes; i++ {
