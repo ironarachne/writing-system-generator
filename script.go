@@ -1,4 +1,4 @@
-package wrisysgen
+package script
 
 import (
 	"fmt"
@@ -6,7 +6,39 @@ import (
 	"os"
 )
 
-const templateHTML = `
+// Script is a writing system script
+type Script struct {
+	Glyphs []Glyph
+}
+
+// Generate procedurally generates a set of glyphs
+func Generate() Script {
+	script := randomScript(128, 128)
+
+	return script
+}
+
+func randomScript(glyphWidth int, glyphHeight int) Script {
+	var newGlyph Glyph
+	script := Script{}
+	glyphs := []Glyph{}
+
+	letters := []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
+
+	for _, l := range letters {
+		newGlyph = generateGlyph(l, glyphWidth, glyphHeight)
+		glyphs = append(glyphs, newGlyph)
+	}
+
+	script.Glyphs = glyphs
+
+	return script
+}
+
+// RenderHTML renders an HTML version of a script
+func (script Script) RenderHTML() {
+	symbols := []string{}
+	templateHTML := `
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,7 +63,6 @@ const templateHTML = `
 </html>
 `
 
-func renderHTML(symbols []string) {
 	writer, err := os.Create("./output/index.html")
 	if err != nil {
 		fmt.Println(err)
@@ -44,6 +75,10 @@ func renderHTML(symbols []string) {
 		return
 	}
 
+	for _, g := range script.Glyphs {
+		symbols = append(symbols, g.Representation)
+	}
+
 	err = t.Execute(writer, symbols)
 	if err != nil {
 		fmt.Println(err)
@@ -51,4 +86,11 @@ func renderHTML(symbols []string) {
 	}
 
 	defer writer.Close()
+}
+
+// RenderGlyphImages runs the render process for each glyph in a script
+func (script Script) RenderGlyphImages() {
+	for _, g := range script.Glyphs {
+		g.Render()
+	}
 }

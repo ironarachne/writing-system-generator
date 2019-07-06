@@ -1,9 +1,16 @@
 package main
 
 import (
-	"github.com/ironarachne/writing-system-generator"
+	"math/rand"
+	"time"
+
+	script "github.com/ironarachne/writing-system-generator"
 )
 
 func main() {
-	wrisysgen.Generate()
+	rand.Seed(time.Now().UnixNano())
+	newScript := script.Generate()
+
+	newScript.RenderGlyphImages()
+	newScript.RenderHTML()
 }
